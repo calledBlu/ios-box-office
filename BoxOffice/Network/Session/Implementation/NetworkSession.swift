@@ -1,0 +1,40 @@
+//
+//  NetworkSession.swift
+//  BoxOffice
+//
+//  Created by Blu on 2023/05/01.
+//
+
+import Foundation
+
+final class NetworkSession: NetworkSessionProtocol {
+
+    // MARK: - Private property
+
+    private let session: URLSession
+
+    // MARK: - Lifecycle
+    init(session: URLSession) {
+        self.session = session
+    }
+
+    func dataTask(
+        with request: URLRequest,
+        completionHandler: @escaping (Result<NetworkResponse, Error>) -> Void) {
+
+            let task = session.dataTask(with: request) { (data, response, error) in
+                if let error = error {
+                    completionHandler(.failure(error))
+                    return
+                }
+
+                guard let response = response else {
+                    completionHandler(.failure(NetworkError.responseNotFound))
+                    return
+                }
+
+                completionHandler(.success(NetworkResponse(response: response, data: data)))
+            }
+            task.resume()
+    }
+}

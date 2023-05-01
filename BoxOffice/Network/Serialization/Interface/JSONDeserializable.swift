@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol JSONDeserializable {
+protocol NetworkDeserializable {
     
     func deserialize<T: Decodable>(_ data: Data) throws -> T
 }

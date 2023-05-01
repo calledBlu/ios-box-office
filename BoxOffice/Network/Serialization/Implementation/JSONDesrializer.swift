@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct JSONDeserializer: JSONDeserializable {
+struct JSONDeserializer: NetworkDeserializable {
     
     private let decoder: JSONDecoder
 
