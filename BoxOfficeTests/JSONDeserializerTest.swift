@@ -15,8 +15,7 @@ final class JSONDeserializerTest: XCTestCase {
     
     override func setUpWithError() throws {
 
-//        let fileName = "box_office_sample"
-        let fileName = "movie_info_sample"
+        let fileName = "box_office_sample"
         let fileExtension = "json"
 
         try super.setUpWithError()
@@ -30,7 +29,7 @@ final class JSONDeserializerTest: XCTestCase {
         decoder = nil
     }
 
-    func test_BoxOfficeDTO타입으로_Parsing되는지() throws {
+    func test_DTO타입으로_Parsing되는지() throws {
 
         // given
         var result: BoxOfficeDTO?
@@ -43,21 +42,6 @@ final class JSONDeserializerTest: XCTestCase {
         XCTAssertNoThrow(result)
         XCTAssertEqual(result?.result.type, "일별 박스오피스")
         XCTAssertEqual(result?.result.inqueryRange, "20220105~20220105")
-    }
-    
-    func test_MovieInfoDTO타입으로_Parsing되는지() throws {
-
-        // given
-        var result: MovieInfoDTO?
-
-        // when
-        let data = try Data(contentsOf: fileURL)
-        result = try decoder.deserialize(data)
-        
-        // then
-        XCTAssertNoThrow(result)
-        XCTAssertEqual(result?.result.movieInfo.movieCD, "20124079")
-        XCTAssertEqual(result?.result.movieInfo.movieNm, "광해, 왕이 된 남자")
     }
 
     
