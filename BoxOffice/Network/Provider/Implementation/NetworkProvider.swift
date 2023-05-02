@@ -60,7 +60,7 @@ final class NetworkProvider: NetworkProvidable {
         case .requestParameters(let urlParameters):
             var queryItems = [URLQueryItem]()
             urlParameters.forEach {
-                let queryItem = URLQueryItem(name: $0.key, value: $0.value)
+                let queryItem = URLQueryItem(name: $0.key, value: $0.value as? String)
                 queryItems.append(queryItem)
             }
             components?.queryItems = queryItems

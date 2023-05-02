@@ -11,7 +11,7 @@ import Foundation
 enum HTTPTask {
     case requestPlain
     // url parameters을 사용하는 request
-    case requestParameters(urlParameters: [String: String])
+    case requestParameters(urlParameters: [String: Any])
     // request body와 url parameters을 사용하는 request
-    case requestParametersAndBody(bodyParameters: String, urlParameters: [String: String])
+    case requestParametersAndBody(bodyParameters: String, urlParameters: [String: Any])
 }

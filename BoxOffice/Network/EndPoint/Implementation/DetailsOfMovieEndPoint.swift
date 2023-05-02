@@ -10,7 +10,6 @@ import Foundation
 struct DetailsOfMovieEndPoint: RequestResponseProtocol {
     
     typealias Response = DetailsOfMovieDTO
-    private let api = MovieAPI.detailsOfMovie
     
     var baseURL: String
     var path: String
@@ -18,10 +17,15 @@ struct DetailsOfMovieEndPoint: RequestResponseProtocol {
     var task: HTTPTask?
     var headers: [String : String]?
     
-    init() {
+    init(code: String) {
+        let api = MovieAPI.detailsOfMovie
+        
         self.baseURL = api.baseURL
         self.path = api.path
         self.httpMethod = .get
-        self.task = .requestParameters(urlParameters: api.urlParameters)
+        
+        var urlParameters = api.keyParameter
+        urlParameters["movieCd"] = code
+        self.task = .requestParameters(urlParameters: urlParameters)
     }
 }

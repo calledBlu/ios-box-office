@@ -7,10 +7,9 @@
 
 import Foundation
 
-struct TodayBoxOfficeEndPoint: RequestResponseProtocol {
+struct BoxOfficeEndPoint: RequestResponseProtocol {
     
     typealias Response = BoxOfficeDTO
-    private let api = MovieAPI.todayBoxOffice
     
     var baseURL: String
     var path: String
@@ -18,10 +17,15 @@ struct TodayBoxOfficeEndPoint: RequestResponseProtocol {
     var task: HTTPTask?
     var headers: [String : String]?
     
-    init() {
+    init(date: String) {
+        let api = MovieAPI.boxOffice
+        
         self.baseURL = api.baseURL
         self.path = api.path
         self.httpMethod = .get
-        self.task = .requestParameters(urlParameters: api.urlParameters)
+        
+        var urlParameters = api.keyParameter
+        urlParameters["targetDt"] = date
+        self.task = .requestParameters(urlParameters: urlParameters)
     }
 }

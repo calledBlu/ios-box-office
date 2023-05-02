@@ -9,7 +9,7 @@ import Foundation
 
 enum MovieAPI {
     
-    case todayBoxOffice
+    case boxOffice
     case detailsOfMovie
     
     var baseURL: String {
@@ -18,11 +18,20 @@ enum MovieAPI {
     
     var path: String {
         switch self {
-        case .todayBoxOffice:
-            return "/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.xml"
+        case .boxOffice:
+            return "/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"
         case .detailsOfMovie:
-            return "/kobisopenapi/webservice/rest/movie/searchMovieInfo.xml"
+            return "/kobisopenapi/webservice/rest/movie/searchMovieInfo.json"
         }
+    }
+    
+    var keyParameter: [String: Any] {
+        
+        var result = [String: Any]()
+        let apiKey = Bundle.main.apiKey
+        result["key"] = apiKey
+        
+        return result
     }
     
     // 여기서 URLQueryItem을 직접 다루는 것이 이상해서 string dictionary로 바꿈
@@ -42,26 +51,6 @@ enum MovieAPI {
 //        }
 //    }
     
-    var urlParameters: [String: String] {
-        
-        var result = [String: String]()
-        let apiKey = Bundle.main.apiKey!
-        result["key"] = apiKey
-        
-        switch self {
-        case .todayBoxOffice:
-            let targetDate = "targetDt"
-            let today = "20230502"
-            result[targetDate] = today
-        case .detailsOfMovie:
-            let movieCode = "movieCd"
-            let code = "20124079"
-            result[movieCode] = code
-        }
-        
-        return result
-    }
-    
     // ver1. 접근: .todayBoxOffice.endPoint
 //    var endPoint: Requestable {
 //        return EndPoint(baseURL: self.baseURL,
@@ -71,8 +60,6 @@ enum MovieAPI {
 //        )
 //    }
 }
-
-extension MovieAPI {
     
     // ver2. 접근: MovieAPI.getMovieInfo(with: .todayBoxOffice)
     // ver3. movieAPI 타입이 아닌, DTO에 해당 속성들을 extension으로 추가하고, 접근 자체를 DTO로 하는 방법 -> DTO는 비지니스 로직을 가지면 안되기 때문에 취소@
@@ -83,4 +70,3 @@ extension MovieAPI {
 //                        task: .requestParameters(urlParameters: movieAPI.urlParameters)
 //                        )
 //    }
-}
