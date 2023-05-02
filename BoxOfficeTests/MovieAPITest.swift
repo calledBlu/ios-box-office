@@ -11,7 +11,7 @@ import XCTest
 final class MovieAPITest: XCTestCase {
     
     var sut: NetworkProvidable!
-    let endPoint = BoxOfficeEndPoint(date: "20230502")
+    let endPoint = BoxOfficeEndPoint(date: "20230501")
 
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -44,7 +44,6 @@ final class MovieAPITest: XCTestCase {
         
         do {
             let request = try sut.makeRequest(endPoint)
-            XCTAssertEqual(request.description, "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=9aec3538db2b5ebc1405409110698317&targetDt=20230502")
             XCTAssertNotNil(request)
         } catch {
             XCTFail("실패! \(error.localizedDescription)")

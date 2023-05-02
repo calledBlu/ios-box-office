@@ -13,7 +13,7 @@ enum MovieAPI {
     case detailsOfMovie
     
     var baseURL: String {
-        return "http://www.kobis.or.kr"
+        return "https://www.kobis.or.kr"
     }
     
     var path: String {
