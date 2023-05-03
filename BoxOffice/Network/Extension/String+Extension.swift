@@ -11,7 +11,6 @@ extension String {
 
     init(today: Date) {
 
-        // 24H = 86400s
         let yesterday = today - 86400
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYYMMdd"

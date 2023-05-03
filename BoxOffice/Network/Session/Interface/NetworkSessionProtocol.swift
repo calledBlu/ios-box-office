@@ -7,10 +7,12 @@
 
 import Foundation
 
+typealias NetworkResult = Result<Data, Error>
+
 protocol NetworkSessionProtocol {
     
     func dataTask(
         with request: URLRequest,
-        completionHandler: @escaping (Result<NetworkResponse, Error>) -> Void
-    )
+        completionHandler: @escaping (NetworkResult) -> Void)
+
 }

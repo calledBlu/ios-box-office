@@ -9,31 +9,29 @@ import Foundation
 
 final class NetworkSession: NetworkSessionProtocol {
 
-    // MARK: - Private property
-
     private let session: URLSession
 
-    // MARK: - Lifecycle
     init(session: URLSession) {
         self.session = session
     }
 
     func dataTask(
         with request: URLRequest,
-        completionHandler: @escaping (Result<NetworkResponse, Error>) -> Void) {
+        completionHandler: @escaping (NetworkResult) -> Void) {
 
             let task = session.dataTask(with: request) { (data, response, error) in
-                if let error = error {
-                    completionHandler(.failure(error))
-                    return
-                }
 
                 guard let response = response else {
-                    completionHandler(.failure(NetworkError.responseNotFound))
+                    completionHandler(.failure(NetworkError.notFoundAPIKey))
                     return
                 }
 
-                completionHandler(.success(NetworkResponse(response: response, data: data)))
+                guard response.checkResponse else {
+                    completionHandler(.failure(NetworkError.outOfReponseCode))
+                    return
+                }
+
+                completionHandler(.success(data ?? Data()))
             }
             task.resume()
     }

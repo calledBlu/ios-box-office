@@ -9,12 +9,7 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    let baseURLManager: BaseURLResolvable & BaseURLRegisterable = BaseURLManager()
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        baseURLManager.register("kobis.or.kr", for: .boxOfficeList)
-        
         return true
     }
 

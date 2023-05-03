@@ -17,7 +17,7 @@ struct JSONDeserializer: NetworkDeserializable {
     }
 
     func deserialize<T: Decodable>(_ data: Data) throws -> T {
-        
+
         try decoder.decode(T.self, from: data)
     }
 }

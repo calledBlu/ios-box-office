@@ -1,0 +1,11 @@
+//
+//  APIKeys.xcconfig
+//  BoxOffice
+//
+//  Created by Sunny on 2023/05/01.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+MOVIE_APP_KEY = 9aec3538db2b5ebc1405409110698317
