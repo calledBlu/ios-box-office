@@ -33,17 +33,6 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F036102229F78DB70036BBF0"
-               BuildableName = "JSONDeserializerTest.xctest"
-               BlueprintName = "JSONDeserializerTest"
-               ReferencedContainer = "container:BoxOffice.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "F0560C5629F7A15D0062FB01"
                BuildableName = "BoxOfficeTests.xctest"
                BlueprintName = "BoxOfficeTests"

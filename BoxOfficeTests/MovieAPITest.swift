@@ -43,7 +43,7 @@ final class MovieAPITest: XCTestCase {
     func test_URLRequest가_잘만들어지는지() {
         
         do {
-            let request = try sut.makeRequest(endPoint)
+            let request = try endPoint.makeRequest()
             XCTAssertNotNil(request)
         } catch {
             XCTFail("실패! \(error.localizedDescription)")
