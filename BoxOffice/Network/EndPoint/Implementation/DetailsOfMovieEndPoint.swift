@@ -11,7 +11,8 @@ struct DetailsOfMovieEndPoint: RequestResponseProtocol {
     
     typealias Response = DetailsOfMovieDTO
     
-    var baseURL: String
+    var scheme: String
+    var host: String
     var path: String
     var httpMethod: HTTPMethod
     var task: HTTPTask?
@@ -20,7 +21,8 @@ struct DetailsOfMovieEndPoint: RequestResponseProtocol {
     init(code: String) {
         let api = MovieAPI.detailsOfMovie
         
-        self.baseURL = api.baseURL
+        self.scheme = api.scheme
+        self.host = api.host
         self.path = api.path
         self.httpMethod = .get
         

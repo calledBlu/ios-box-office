@@ -11,7 +11,8 @@ struct BoxOfficeEndPoint: RequestResponseProtocol {
     
     typealias Response = BoxOfficeDTO
     
-    var baseURL: String
+    var scheme: String
+    var host: String
     var path: String
     var httpMethod: HTTPMethod
     var task: HTTPTask?
@@ -20,7 +21,8 @@ struct BoxOfficeEndPoint: RequestResponseProtocol {
     init(date: String) {
         let api = MovieAPI.boxOffice
         
-        self.baseURL = api.baseURL
+        self.scheme = api.scheme
+        self.host = api.host
         self.path = api.path
         self.httpMethod = .get
         
