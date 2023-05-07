@@ -9,18 +9,16 @@ import Foundation
 
 struct DailyBoxOfficesDTO: Decodable {
     
-    let rnum, rank, rankInten: String
+    let rank, rankInten: String
     let rankOldAndNew: RankOldAndNewDTO
-    let movieCD, movieNm, openDt, salesAmt: String
-    let salesShare, salesInten, salesChange, salesAcc: String
-    let audiCnt, audiInten, audiChange, audiAcc: String
-    let scrnCnt, showCnt: String
+    let movieCD, movieNm: String
+    let audiCnt, audiAcc: String
 
     enum CodingKeys: String, CodingKey {
         
-        case rnum, rank, rankInten, rankOldAndNew
+        case rank, rankInten, rankOldAndNew
         case movieCD = "movieCd"
-        case movieNm, openDt, salesAmt, salesShare, salesInten, salesChange, salesAcc, audiCnt, audiInten, audiChange, audiAcc, scrnCnt, showCnt
+        case movieNm, audiCnt, audiAcc
     }
 }
 
