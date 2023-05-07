@@ -7,11 +7,10 @@
 
 import UIKit
 
-final class RankCell: UICollectionViewListCell {
+final class RankCell: CustomRankListCell {
     
     private let rankNumberTextView: UILabel = {
         let textView = UILabel(frame: .zero)
-        textView.text = "1"
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .red
         return textView
@@ -19,7 +18,6 @@ final class RankCell: UICollectionViewListCell {
     
     private let rankDetailTextView: UILabel = {
         let textView = UILabel(frame: .zero)
-        textView.text = "신작"
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .blue
         return textView
@@ -27,7 +25,6 @@ final class RankCell: UICollectionViewListCell {
     
     private let movieNameTextView: UILabel = {
         let textView = UILabel(frame: .zero)
-        textView.text = "경관의 피"
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .yellow
         return textView
@@ -35,7 +32,6 @@ final class RankCell: UICollectionViewListCell {
     
     private let movieDetailTextView: UILabel = {
         let textView = UILabel(frame: .zero)
-        textView.text = "오늘 64,050 / 총 69,228"
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .systemPink
         return textView
@@ -45,6 +41,13 @@ final class RankCell: UICollectionViewListCell {
         super.updateConfiguration(using: state)
 
         configureHierarchy()
+        
+        rankNumberTextView.text = state.rankItem?.rank.number
+        rankDetailTextView.text = state.rankItem?.rank.detail
+        
+        movieNameTextView.text = state.rankItem?.name
+        movieDetailTextView.text = state.rankItem?.audience
+        
     }
     
     private func configureHierarchy() {
@@ -84,5 +87,36 @@ final class RankCell: UICollectionViewListCell {
             movieStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
             movieStackView.leadingAnchor.constraint(equalTo: rankStackView.trailingAnchor, constant: 20)
         ])
+    }
+}
+
+class CustomRankListCell: UICollectionViewListCell {
+    
+    private var rankItem: RankItem? = nil
+    
+    func updateWithItem(_ newItem: RankItem) {
+        guard rankItem != newItem else { return }
+        rankItem = newItem
+        setNeedsUpdateConfiguration()
+    }
+    
+    override var configurationState: UICellConfigurationState {
+        var state = super.configurationState
+        state.rankItem = self.rankItem
+        return state
+    }
+}
+
+
+extension UIConfigurationStateCustomKey {
+    
+    static let rankItem = UIConfigurationStateCustomKey("com.sunny.RankCell.rankItem")
+}
+
+extension UICellConfigurationState {
+    
+    var rankItem: RankItem? {
+        set { self[.rankItem] = newValue }
+        get { return self[.rankItem] as? RankItem }
     }
 }

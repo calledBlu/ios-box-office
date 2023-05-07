@@ -39,6 +39,7 @@ class BoxOfficeViewController: UIViewController {
         
         let cellRegistration = UICollectionView.CellRegistration<RankCell, RankItem> { (cell, indexPath, item) in
             
+            cell.updateWithItem(item)
             cell.accessories = [.disclosureIndicator()]
         }
         
