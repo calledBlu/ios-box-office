@@ -88,7 +88,8 @@ final class RankCell: CustomRankListCell {
             rankStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             rankStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             rankStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
-//            rankStackView.widthAnchor.constraint(equalToConstant: 50),
+            rankStackView.widthAnchor.constraint(lessThanOrEqualToConstant: 50),
+            rankStackView.widthAnchor.constraint(equalToConstant: 50),
             
             movieStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             movieStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
