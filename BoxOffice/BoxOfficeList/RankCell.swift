@@ -19,7 +19,7 @@ final class RankCell: CustomRankListCell {
     private let rankDetailTextView: UILabel = {
         let textView = UILabel(frame: .zero)
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = .blue
+        textView.backgroundColor = .darkGray
         return textView
     }()
     
@@ -41,13 +41,20 @@ final class RankCell: CustomRankListCell {
         super.updateConfiguration(using: state)
 
         configureHierarchy()
+        configureSeparator()
         
         rankNumberTextView.text = state.rankItem?.rank.number
-        rankDetailTextView.text = state.rankItem?.rank.detail
+        rankDetailTextView.attributedText = state.rankItem?.rank.detail
         
         movieNameTextView.text = state.rankItem?.name
         movieDetailTextView.text = state.rankItem?.audience
         
+    }
+    
+    private func configureSeparator() {
+        
+        let constraint = separatorLayoutGuide.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        constraint.isActive = true
     }
     
     private func configureHierarchy() {
@@ -81,6 +88,7 @@ final class RankCell: CustomRankListCell {
             rankStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             rankStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             rankStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+//            rankStackView.widthAnchor.constraint(equalToConstant: 50),
             
             movieStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             movieStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),

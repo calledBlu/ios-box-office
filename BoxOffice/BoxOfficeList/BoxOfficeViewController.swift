@@ -62,7 +62,7 @@ extension BoxOfficeViewController {
     
     private func createLayout() -> UICollectionViewLayout {
         
-        let configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
+        let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
 
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         
