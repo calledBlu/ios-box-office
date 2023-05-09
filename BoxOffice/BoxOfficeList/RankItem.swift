@@ -32,7 +32,10 @@ struct Rank: Hashable {
         self.detail = NSMutableAttributedString()
         
         guard new != .new else {
-            detail.append(NSAttributedString(string: "신작"))
+            let attribute: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.systemRed
+            ]
+            detail.append(NSAttributedString(string: "신작", attributes: attribute))
             return
         }
         
