@@ -30,12 +30,6 @@ class BoxOfficeViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        
-        let boxOfficeDataSource = BoxOfficeDataSource()
-        boxOfficeDataSource.boxOffices = presentationProvider.getBoxOffices()
-        dataSource = boxOfficeDataSource
-        collectionView.dataSource = dataSource
-        
         presentationProvider.delegate = self
         presentationProvider.loadBoxOffices(date: Date.yesterday.formatData(type: .network))
     }
@@ -44,13 +38,11 @@ class BoxOfficeViewController: UIViewController {
 extension BoxOfficeViewController: PresentationDelegate {
     
     func call() {
-        print("여기도 실행")
         let boxOfficeDataSource = BoxOfficeDataSource()
         boxOfficeDataSource.boxOffices = self.presentationProvider.getBoxOffices()
         dataSource = boxOfficeDataSource
         
         DispatchQueue.main.async {
-            print("here>?")
             self.collectionView.dataSource = self.dataSource
             self.collectionView.reloadData()
         }

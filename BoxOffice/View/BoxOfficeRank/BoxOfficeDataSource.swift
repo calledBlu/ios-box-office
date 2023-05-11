@@ -19,7 +19,6 @@ final class BoxOfficeDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeue(cell: CustomListCell.self, for: indexPath)
-        print("여긴 dataSource: \(boxOffices.count)")
         cell.boxOfficeItem = boxOffices[indexPath.item]
         
         return cell

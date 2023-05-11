@@ -20,10 +20,6 @@ final class PresentationProvider: PresentationProvidable {
         }
     }
     
-    init() {
-        SceneDelegate().startDelegate = self
-    }
-    
     func loadBoxOffices(date: String) {
         
         let endpoint = DailyBoxOfficeEndpoint(date: date)
@@ -43,18 +39,6 @@ final class PresentationProvider: PresentationProvidable {
     }
 }
 
-extension PresentationProvider: StartDelegate {
-    
-    func call() {
-        loadBoxOffices(date: self.date)
-        print("실행 됌")
-    }
-}
-
 protocol PresentationDelegate: AnyObject {
-    func call()
-}
-
-protocol StartDelegate: AnyObject {
     func call()
 }
