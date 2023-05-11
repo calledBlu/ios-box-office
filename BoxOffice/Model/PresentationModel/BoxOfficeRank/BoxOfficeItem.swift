@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct BoxOfficeItem {
+protocol ViewDisplayable {
+    
+}
+
+struct BoxOfficeItem: ViewDisplayable {
     
     let rank: Rank
     let name: String

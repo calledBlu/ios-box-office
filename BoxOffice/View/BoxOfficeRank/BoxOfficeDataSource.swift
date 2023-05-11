@@ -9,15 +9,18 @@ import UIKit
 
 final class BoxOfficeDataSource: NSObject, UICollectionViewDataSource {
     
+    var boxOffices: [BoxOfficeItem] = []
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        BoxOfficeItem.mock.count
+        boxOffices.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeue(cell: CustomListCell.self, for: indexPath)
-        cell.boxOfficeItem = BoxOfficeItem.mock[indexPath.item]
+        print("여긴 dataSource: \(boxOffices.count)")
+        cell.boxOfficeItem = boxOffices[indexPath.item]
         
         return cell
     }

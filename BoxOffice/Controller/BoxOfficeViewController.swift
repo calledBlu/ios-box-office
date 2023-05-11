@@ -9,6 +9,7 @@ import UIKit
 
 class BoxOfficeViewController: UIViewController {
     
+    private let presentationProvider = PresentationProvider()
     private var dataSource: UICollectionViewDataSource?
 
     private lazy var collectionView = BoxOfficeCollectionView(frame: view.bounds)
@@ -30,8 +31,26 @@ class BoxOfficeViewController: UIViewController {
     
     private func configureDataSource() {
         
-        self.dataSource = BoxOfficeDataSource()
+        presentationProvider.delegate = self
+        presentationProvider.loadBoxOffices(date: Date.yesterday.formatData(type: .network))
+        
         collectionView.dataSource = dataSource
+    }
+}
+
+extension BoxOfficeViewController: PresentationDelegate {
+    
+    func call() {
+        print("여기도 실행")
+        
+        DispatchQueue.main.async {
+            let dataSource = BoxOfficeDataSource()
+            dataSource.boxOffices = self.presentationProvider.getBoxOffices()
+            self.collectionView.dataSource = dataSource
+            
+            print("here>?")
+            self.collectionView.reloadData()
+        }
     }
 }
 

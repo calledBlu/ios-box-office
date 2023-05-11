@@ -32,7 +32,7 @@ final class CustomListCell: UICollectionViewListCell {
 
         configureHierarchy()
         configureSeparator()
-
+        
         rankNumberLabel.text = boxOfficeItem?.rank.number
         rankDetailLabel.attributedText = boxOfficeItem?.rank.detail
         movieNameLabel.text = boxOfficeItem?.name
