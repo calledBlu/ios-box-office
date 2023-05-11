@@ -30,6 +30,7 @@ class BoxOfficeViewController: UIViewController {
     }
     
     private func configureDataSource() {
+        
         presentationProvider.delegate = self
         presentationProvider.loadBoxOffices(date: Date.yesterday.formatData(type: .network))
     }
@@ -44,7 +45,6 @@ extension BoxOfficeViewController: PresentationDelegate {
         
         DispatchQueue.main.async {
             self.collectionView.dataSource = self.dataSource
-            self.collectionView.reloadData()
         }
     }
 }

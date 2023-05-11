@@ -28,7 +28,6 @@ final class PresentationProvider: PresentationProvidable {
             let networkData = try await boxOfficeDispatcher.fetch(endpoint: endpoint)
             let boxoffices = try await boxOfficeDispatcher.convert(from: networkData)
             self.boxOffices = boxoffices
-            print(self.boxOffices.count)
             
             delegate?.call()
         }
