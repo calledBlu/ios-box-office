@@ -9,5 +9,5 @@ import Foundation
 
 protocol PresentationProvidable {
 
-    mutating func loadBoxOffices(date: String) async throws
+    func loadBoxOffices(date: String) async throws
 }

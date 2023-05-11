@@ -11,14 +11,21 @@ final class PresentationProvider: PresentationProvidable {
     
     private let boxOfficeDispatcher = BoxOfficeDispatcher()
     private var boxOffices: [BoxOfficeItem] = []
+    // boxoffices didset으로 notification 구현해서 vc에 업데이트 하라고 알리기
     
     weak var delegate: PresentationDelegate?
     
-    private var date: String = Date.yesterday.formatData(type: .network) {
+    private var date: String {
         didSet {
             loadBoxOffices(date: date)
         }
     }
+    
+    init() {
+        self.date = Date.yesterday.formatData(type: .network)
+        self.loadBoxOffices(date: date)
+    }
+    
     
     func loadBoxOffices(date: String) {
         
@@ -29,6 +36,7 @@ final class PresentationProvider: PresentationProvidable {
             let boxoffices = try await boxOfficeDispatcher.convert(from: networkData)
             self.boxOffices = boxoffices
             
+            // 추후 삭제
             delegate?.call()
         }
     }

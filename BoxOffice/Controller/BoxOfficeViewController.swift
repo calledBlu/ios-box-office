@@ -18,8 +18,9 @@ class BoxOfficeViewController: UIViewController {
         super.viewDidLoad()
 
         title = Date.yesterday.formatData(type: .title)
+        presentationProvider.delegate = self
+        
         configureHierarchy()
-        configureDataSource()
         configureRefreshControl()
     }
     
@@ -30,15 +31,6 @@ class BoxOfficeViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        
-        presentationProvider.delegate = self
-        presentationProvider.loadBoxOffices(date: Date.yesterday.formatData(type: .network))
-    }
-}
-
-extension BoxOfficeViewController: PresentationDelegate {
-    
-    func call() {
         let boxOfficeDataSource = BoxOfficeDataSource()
         boxOfficeDataSource.boxOffices = self.presentationProvider.getBoxOffices()
         dataSource = boxOfficeDataSource
@@ -46,6 +38,14 @@ extension BoxOfficeViewController: PresentationDelegate {
         DispatchQueue.main.async {
             self.collectionView.dataSource = self.dataSource
         }
+    }
+}
+
+extension BoxOfficeViewController: PresentationDelegate {
+    
+    // notification center 로 변경
+    func call() {
+        self.configureDataSource()
     }
 }
 
