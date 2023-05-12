@@ -11,7 +11,6 @@ final class PresentationProvider: PresentationProvidable {
     
     private let boxOfficeDispatcher = BoxOfficeDispatcher()
     private var boxOffices: [BoxOfficeItem] = []
-    // boxoffices didset으로 notification 구현해서 vc에 업데이트 하라고 알리기
     
     weak var delegate: PresentationDelegate?
     
@@ -36,7 +35,7 @@ final class PresentationProvider: PresentationProvidable {
             let boxoffices = try await boxOfficeDispatcher.convert(from: networkData)
             self.boxOffices = boxoffices
             
-            // 추후 삭제
+            // 추후 삭제 -> notification center 변경
             delegate?.call()
         }
     }
