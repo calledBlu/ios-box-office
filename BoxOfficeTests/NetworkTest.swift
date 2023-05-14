@@ -11,7 +11,8 @@ import XCTest
 final class NetworkTest: XCTestCase {
 
     var sut: NetworkProvidable!
-    var endpoint = DailyBoxOfficeEndpoint(date: Date().yesterday)
+    var endpoint = DailyBoxOfficeEndpoint(date: Date.yesterday.formatData(type: .network))
+    var daumEndpoint = DaumSearchImageEndpoint(movieName: "특송")
     
     override func setUpWithError() throws {
         
@@ -41,9 +42,26 @@ final class NetworkTest: XCTestCase {
             XCTFail("실패! \(error.localizedDescription)")
         }
     }
+    
+    func test_API통신을통해_DaumSearchImageDTO가_들어오는지() async {
+        
+        do {
+            let result = try await sut.request(daumEndpoint)
+            
+            switch result {
+            case .success(let decodingData):
+                XCTAssertNotNil(decodingData)
+                XCTAssertEqual(decodingData.meta.pageableCount, 737)
+            case .failure(let error):
+                XCTFail("API통신 실패! \(error)")
+            }
+        } catch {
+            XCTFail("실패! \(error.localizedDescription)")
+        }
+    }
 
     func test_URLRequest가_만들어지는지() {
-        guard let apiKey = Bundle.main.apiKey else {
+        guard let apiKey = Bundle.main.movieApiKey else {
             return
         }
         
@@ -54,6 +72,18 @@ final class NetworkTest: XCTestCase {
                 return
             }
             XCTAssertEqual(request, URLRequest(url: url))
+        } catch {
+            XCTFail("실패! \(error.localizedDescription)")
+        }
+    }
+    
+    func test_다음API_URLRequest가_만들어지는지() {
+        
+        do {
+            let request = try daumEndpoint.makeRequest()
+            print(request)
+            XCTAssertNotNil(request)
+            
         } catch {
             XCTFail("실패! \(error.localizedDescription)")
         }

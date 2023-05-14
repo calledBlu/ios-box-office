@@ -18,7 +18,9 @@ class BoxOfficeViewController: UIViewController {
         super.viewDidLoad()
 
         title = presentationProvider.getBoxOfficeDate()
+        
         presentationProvider.delegate = self
+        collectionView.delegate = self
         
         configureHierarchy()
         configureRefreshControl()
@@ -38,6 +40,15 @@ class BoxOfficeViewController: UIViewController {
         DispatchQueue.main.async {
             self.collectionView.dataSource = self.dataSource
         }
+    }
+}
+
+extension BoxOfficeViewController: UICollectionViewDelegate {
+ 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let movieInformationViewController = MovieInformationViewController()
+        navigationController?.pushViewController(movieInformationViewController, animated: true)
     }
 }
 

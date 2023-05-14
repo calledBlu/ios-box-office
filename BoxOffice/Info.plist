@@ -4,6 +4,8 @@
 <dict>
 	<key>MovieAPIKey</key>
 	<string>$(MOVIE_APP_KEY)</string>
+	<key>DaumAPIKey</key>
+	<string>$(DAUM_APP_KEY)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
