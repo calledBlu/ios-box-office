@@ -17,7 +17,7 @@ class BoxOfficeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Date.yesterday.formatData(type: .title)
+        title = presentationProvider.getBoxOfficeDate()
         presentationProvider.delegate = self
         
         configureHierarchy()

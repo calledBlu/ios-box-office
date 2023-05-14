@@ -14,15 +14,17 @@ final class PresentationProvider: PresentationProvidable {
     
     weak var delegate: PresentationDelegate?
     
-    private var date: String {
+    private var date: Date {
         didSet {
-            loadBoxOffices(date: date)
+            let networkDate = date.formatData(type: .network)
+            loadBoxOffices(date: networkDate)
         }
     }
     
     init() {
-        self.date = Date.yesterday.formatData(type: .network)
-        self.loadBoxOffices(date: date)
+        self.date = Date.yesterday
+        let yesterdayDate = date.formatData(type: .network)
+        self.loadBoxOffices(date: yesterdayDate)
     }
     
     
@@ -42,6 +44,10 @@ final class PresentationProvider: PresentationProvidable {
     
     func getBoxOffices() -> [BoxOfficeItem] {
         return self.boxOffices
+    }
+    
+    func getBoxOfficeDate() -> String {
+        return self.date.formatData(type: .title)
     }
 }
 
