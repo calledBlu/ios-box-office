@@ -42,7 +42,6 @@ final class PresentationTest: XCTestCase {
         do {
             let movieImageDTO = try await sut2.fetchDaumImageDTO(daumEndpoint)
             let movieImage = try sut2.convertImage(from: movieImageDTO)
-            print(movieImage)
             XCTAssertNotNil(movieImage)
         } catch {
             XCTFail("실패! \(error.localizedDescription)")
@@ -53,7 +52,6 @@ final class PresentationTest: XCTestCase {
         
         do {
             let poster = try await sut1.loadMoviePoster(movieName: "특송")
-            print(poster)
             XCTAssertNotNil(poster)
         } catch {
             XCTFail("실패! \(error.localizedDescription)")

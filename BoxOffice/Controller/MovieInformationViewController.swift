@@ -9,6 +9,7 @@ import UIKit
 
 final class MovieInformationViewController: UIViewController {
 
+    private let presentationProvider = PresentationProvider()
     private let movieInformationView = MovieInformationVIew()
     
     override func viewDidLoad() {

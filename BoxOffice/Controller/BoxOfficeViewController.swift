@@ -11,6 +11,10 @@ class BoxOfficeViewController: UIViewController {
     
     private let presentationProvider = PresentationProvider()
     private var dataSource: UICollectionViewDataSource?
+    
+    private var boxOffices: [BoxOfficeItem] {
+        self.presentationProvider.getBoxOffices()
+    }
 
     private lazy var collectionView = BoxOfficeCollectionView(frame: view.bounds)
 
@@ -34,7 +38,7 @@ class BoxOfficeViewController: UIViewController {
     
     private func configureDataSource() {
         let boxOfficeDataSource = BoxOfficeDataSource()
-        boxOfficeDataSource.boxOffices = self.presentationProvider.getBoxOffices()
+        boxOfficeDataSource.boxOffices = boxOffices
         dataSource = boxOfficeDataSource
         
         DispatchQueue.main.async {
@@ -47,7 +51,10 @@ extension BoxOfficeViewController: UICollectionViewDelegate {
  
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        let selectItem = boxOffices[indexPath.item]
+        
         let movieInformationViewController = MovieInformationViewController()
+        // movie code만 전달
         navigationController?.pushViewController(movieInformationViewController, animated: true)
     }
 }
