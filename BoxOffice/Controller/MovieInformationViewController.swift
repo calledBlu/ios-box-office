@@ -15,6 +15,7 @@ final class MovieInformationViewController: UIViewController {
         super.viewDidLoad()
         
         title = "특송"
+        
 
     }
     

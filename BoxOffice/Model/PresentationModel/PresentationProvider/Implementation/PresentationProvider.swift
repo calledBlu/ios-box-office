@@ -5,11 +5,13 @@
 //  Created by Sunny on 2023/05/11.
 //
 
-import Foundation
+import UIKit
 
 final class PresentationProvider: PresentationProvidable {
     
     private let boxOfficeDispatcher = BoxOfficeDispatcher()
+    
+    private let cache = NSCache<NSURL, UIImage>()
     private var boxOffices: [BoxOfficeItem] = []
     
     weak var delegate: PresentationDelegate?
@@ -26,7 +28,6 @@ final class PresentationProvider: PresentationProvidable {
         let yesterdayDate = date.formatData(type: .network)
         self.loadBoxOffices(date: yesterdayDate)
     }
-    
     
     func loadBoxOffices(date: String) {
         

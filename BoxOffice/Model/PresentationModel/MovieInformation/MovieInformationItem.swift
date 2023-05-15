@@ -10,7 +10,7 @@ import UIKit
 struct MovieInformationItem: ViewDisplayable {
     
     let movieName: String
-    let image: UIImage
+    let poster: UIImage?
     let director: DirectorDTO
     let openDate: String
     let showTime: String
