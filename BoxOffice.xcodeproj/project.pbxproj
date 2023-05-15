@@ -27,6 +27,7 @@
 		80A323B92A03622900617897 /* NetworkProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A323B82A03622900617897 /* NetworkProvidable.swift */; };
 		80A323BB2A03626300617897 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A323BA2A03626300617897 /* NetworkProvider.swift */; };
 		80A9FDF42A11CD52001EAB03 /* APIKeys.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 80A9FDF32A11CD52001EAB03 /* APIKeys.xcconfig */; };
+		80A9FDFA2A123EF1001EAB03 /* PresentationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9FDF92A123EF1001EAB03 /* PresentationTest.swift */; };
 		80B1913F2A114105001E6B7D /* NetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A323BC2A0369A000617897 /* NetworkTest.swift */; };
 		80DB65302A09DB9500373449 /* Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB652F2A09DB9500373449 /* Rank.swift */; };
 		80DB65332A0A080E00373449 /* BoxOfficeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB65322A0A080E00373449 /* BoxOfficeItem.swift */; };
@@ -96,6 +97,7 @@
 		80A323BA2A03626300617897 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		80A323BC2A0369A000617897 /* NetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTest.swift; sourceTree = "<group>"; };
 		80A9FDF32A11CD52001EAB03 /* APIKeys.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKeys.xcconfig; sourceTree = "<group>"; };
+		80A9FDF92A123EF1001EAB03 /* PresentationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationTest.swift; sourceTree = "<group>"; };
 		80DB652F2A09DB9500373449 /* Rank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rank.swift; sourceTree = "<group>"; };
 		80DB65322A0A080E00373449 /* BoxOfficeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeItem.swift; sourceTree = "<group>"; };
 		80DB65562A0B382B00373449 /* BoxOfficeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeDataSource.swift; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 				F0560C5929F7A15D0062FB01 /* JSONDeserializerTest.swift */,
 				80985E0129FF52DB008BF073 /* APIKeyTest.swift */,
 				80A323BC2A0369A000617897 /* NetworkTest.swift */,
+				80A9FDF92A123EF1001EAB03 /* PresentationTest.swift */,
 			);
 			path = BoxOfficeTests;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80985E0229FF52DB008BF073 /* APIKeyTest.swift in Sources */,
+				80A9FDFA2A123EF1001EAB03 /* PresentationTest.swift in Sources */,
 				80B1913F2A114105001E6B7D /* NetworkTest.swift in Sources */,
 				F0560C5A29F7A15D0062FB01 /* JSONDeserializerTest.swift in Sources */,
 			);

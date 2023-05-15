@@ -55,8 +55,13 @@ extension BoxOfficeViewController: UICollectionViewDelegate {
 extension BoxOfficeViewController: PresentationDelegate {
     
     // notification center 로 변경
-    func call() {
+    func callBoxOffices() {
         self.configureDataSource()
+    }
+    
+    func callMovieInformation() {
+        
+//        print(presentationProvider.getMovieInformation())
     }
 }
 

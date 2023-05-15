@@ -29,18 +29,4 @@ final class NetworkProvider: NetworkProvidable {
             return .failure(error)
         }
     }
-    
-    func request(_ url: URL) async throws -> Result<UIImage?, NetworkError> {
-        
-        let request = URLRequest(url: url)
-        let result = try await session.data(from: request)
-        
-        switch result {
-        case .success(let data):
-            let image = UIImage(data: data)
-            return .success(image)
-        case .failure(let error):
-            return .failure(error)
-        }
-    }
 }

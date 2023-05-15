@@ -11,6 +11,7 @@ import XCTest
 final class NetworkTest: XCTestCase {
 
     var sut: NetworkProvidable!
+    
     var endpoint = DailyBoxOfficeEndpoint(date: Date.yesterday.formatData(type: .network))
     var daumEndpoint = DaumSearchImageEndpoint(movieName: "특송")
     
@@ -33,6 +34,7 @@ final class NetworkTest: XCTestCase {
             
             switch result {
             case .success(let decodingData):
+                print(decodingData)
                 XCTAssertNotNil(decodingData)
                 XCTAssertEqual(decodingData.result.type, "일별 박스오피스")
             case .failure(let error):
