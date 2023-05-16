@@ -15,20 +15,14 @@ struct MovieInformationDispatcher: PresentationDispatchable {
     func convert(from networkData: MovieInformationDTO) throws -> [MovieInformationItem] {
         
         let data = networkData.result.movieIformation
-        
-        let director = data.directors.first?.peopleNm ?? ""
-        let auditGrade = data.audits.first?.watchGradeNm ?? ""
-        let nation = data.nations.first?.nationNm ?? ""
-        
         let movieInformation = [ViewModel(movieName: data.movieNm,
-                                         director: director,
+                                          directors: data.directors,
                                          openDate: data.openDt,
-                                         showTime: data.showTm,
-                                         auditGrade: auditGrade,
-                                         nation: nation,
-                                         genre: data.genres,
-                                         actor: data.actors)]
-        
+                                          showTime: data.showTm,
+                                          audits: data.audits,
+                                          nations: data.nations,
+                                          genres: data.genres,
+                                          actors: data.actors)]
         return movieInformation
     }
     
