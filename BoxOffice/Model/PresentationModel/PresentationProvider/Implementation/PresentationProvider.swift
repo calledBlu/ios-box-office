@@ -18,7 +18,8 @@ final class PresentationProvider: PresentationProvidable {
     private var boxOffices: [BoxOfficeItem] = []
     private var movieInformation: MovieInformationItem?
     
-    weak var delegate: PresentationDelegate?
+    weak var boxOfficeDelegate: BoxOfficePresentationDelegate?
+    weak var movieInformationDelegate: MovieInformationPresentationDelegate?
     
     private var date: Date {
         didSet {
@@ -43,9 +44,7 @@ final class PresentationProvider: PresentationProvidable {
             self.boxOffices = boxoffices
             
             // 추후 삭제 -> notification center 변경
-            delegate?.callBoxOffices()
-            
-            guard let movie = boxoffices.first else { return }
+            boxOfficeDelegate?.callBoxOffices()
         }
     }
     
@@ -60,7 +59,8 @@ final class PresentationProvider: PresentationProvidable {
             movieInformation.poster = try await loadMoviePoster(movieName: movieInformation.movieName)
             self.movieInformation = movieInformation
             
-//            delegate?.callMovieInformation()
+            print(movieInformation)
+            movieInformationDelegate?.callMovieInformation()
         }
     }
     
@@ -88,7 +88,10 @@ final class PresentationProvider: PresentationProvidable {
     }
 }
 
-protocol PresentationDelegate: AnyObject {
+protocol BoxOfficePresentationDelegate: AnyObject {
     func callBoxOffices()
-//    func callMovieInformation()
+}
+
+protocol MovieInformationPresentationDelegate: AnyObject {
+    func callMovieInformation()
 }

@@ -23,7 +23,7 @@ class BoxOfficeViewController: UIViewController {
 
         title = presentationProvider.getBoxOfficeDate()
         
-        presentationProvider.delegate = self
+        presentationProvider.boxOfficeDelegate = self
         collectionView.delegate = self
         
         configureHierarchy()
@@ -51,26 +51,22 @@ extension BoxOfficeViewController: UICollectionViewDelegate {
  
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let selectItem = boxOffices[indexPath.item]
+        let selectItemMovieCode = boxOffices[indexPath.item].movieCode
         
         let movieInformationViewController = MovieInformationViewController()
-        // movie code만 전달
+        movieInformationViewController.movieCode = selectItemMovieCode
         navigationController?.pushViewController(movieInformationViewController, animated: true)
     }
 }
 
-extension BoxOfficeViewController: PresentationDelegate {
+extension BoxOfficeViewController: BoxOfficePresentationDelegate {
     
     // notification center 로 변경
     func callBoxOffices() {
         self.configureDataSource()
     }
-    
-    func callMovieInformation() {
-        
-//        print(presentationProvider.getMovieInformation())
-    }
 }
+
 
 extension BoxOfficeViewController {
 

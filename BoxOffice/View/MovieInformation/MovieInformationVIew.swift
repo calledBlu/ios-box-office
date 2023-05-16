@@ -9,6 +9,8 @@ import UIKit
 
 final class MovieInformationVIew: UIView {
     
+    var information: MovieInformationItem?
+    
     private let moviePoster = UIImageView()
     
     private let directorLabel: UILabel = {
@@ -32,7 +34,7 @@ final class MovieInformationVIew: UIView {
     
     private func configureHierarchy() {
         
-        moviePoster.image = UIImage(named: "sample")
+        moviePoster.image = information?.poster
         moviePoster.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(moviePoster)
