@@ -17,6 +17,7 @@ struct MovieInformationDispatcher: PresentationDispatchable {
         let data = networkData.result.movieIformation
         let movieInformation = [ViewModel(movieName: data.movieNm,
                                           directors: data.directors,
+                                          productionYear: data.prdtYear,
                                          openDate: data.openDt,
                                           showTime: data.showTm,
                                           audits: data.audits,

@@ -12,6 +12,7 @@ struct MovieInformationItem: ViewDisplayable {
     let movieName: String
     var poster: UIImage?
     let director: String
+    let productionYear: String
     let openDate: String
     let showTime: String
     let auditGrade: String
@@ -19,10 +20,11 @@ struct MovieInformationItem: ViewDisplayable {
     let genre: String
     let actor: String
     
-    init(movieName: String, poster: UIImage? = nil, directors: [DirectorDTO], openDate: String, showTime: String, audits: [AuditDTO], nations: [NationDTO], genres: [GenreDTO], actors: [ActorDTO]) {
+    init(movieName: String, poster: UIImage? = nil, directors: [DirectorDTO], productionYear: String, openDate: String, showTime: String, audits: [AuditDTO], nations: [NationDTO], genres: [GenreDTO], actors: [ActorDTO]) {
         
         self.movieName = movieName
         self.poster = poster
+        self.productionYear = productionYear
         self.openDate = openDate
         self.showTime = showTime
         
