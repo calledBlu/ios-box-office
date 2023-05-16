@@ -21,10 +21,16 @@ final class PresentationProvider: PresentationProvidable {
     weak var boxOfficeDelegate: BoxOfficePresentationDelegate?
     weak var movieInformationDelegate: MovieInformationPresentationDelegate?
     
-    private var date: Date {
+    var date: Date {
         didSet {
             let networkDate = date.formatData(type: .network)
             loadBoxOffices(date: networkDate)
+        }
+    }
+    
+    var movieCode: String = "" {
+        didSet {
+            loadMovieInformation(movieCode: movieCode)
         }
     }
     

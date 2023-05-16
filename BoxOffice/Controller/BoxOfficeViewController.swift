@@ -53,8 +53,7 @@ extension BoxOfficeViewController: UICollectionViewDelegate {
         
         let selectItemMovieCode = boxOffices[indexPath.item].movieCode
         
-        let movieInformationViewController = MovieInformationViewController()
-        movieInformationViewController.movieCode = selectItemMovieCode
+        let movieInformationViewController = MovieInformationViewController(movieCode: selectItemMovieCode)
         navigationController?.pushViewController(movieInformationViewController, animated: true)
     }
 }

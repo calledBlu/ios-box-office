@@ -8,14 +8,17 @@
 import UIKit
 
 final class MovieInformationViewController: UIViewController {
-
+    
     private let presentationProvider = PresentationProvider()
     private let movieInformationView = MovieInformationVIew()
     
-    var movieCode: String = "" {
-        didSet {
-            presentationProvider.loadMovieInformation(movieCode: movieCode)
-        }
+    init(movieCode: String) {
+        presentationProvider.movieCode = movieCode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -24,7 +27,7 @@ final class MovieInformationViewController: UIViewController {
         title = "특송"
         
         presentationProvider.movieInformationDelegate = self
-        setupMovieInformationView()
+//        setupMovieInformationView()
         
     }
     
@@ -32,12 +35,11 @@ final class MovieInformationViewController: UIViewController {
         self.view = movieInformationView
     }
     
-    func setupMovieInformationView() {
-        
-        let movieInformation = presentationProvider.getMovieInformation()
-        movieInformationView.information = movieInformation
-    }
-
+//    func setupMovieInformationView() {
+//
+//        let movieInformation = presentationProvider.getMovieInformation()
+//        movieInformationView.information = movieInformation
+//    }
 }
 
 extension MovieInformationViewController: MovieInformationPresentationDelegate {
@@ -45,6 +47,6 @@ extension MovieInformationViewController: MovieInformationPresentationDelegate {
     func callMovieInformation() {
         
         print("실행")
-        setupMovieInformationView()
+//        setupMovieInformationView()
     }
 }
