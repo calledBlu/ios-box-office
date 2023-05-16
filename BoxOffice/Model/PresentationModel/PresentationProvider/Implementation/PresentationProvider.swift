@@ -18,7 +18,7 @@ final class PresentationProvider: PresentationProvidable {
     private var boxOffices: [BoxOfficeItem] = []
     private var movieInformation: MovieInformationItem?
     
-    weak var boxOfficeDelegate: BoxOfficePresentationDelegate?
+    var boxOfficeCall: (() -> Void)?
     weak var movieInformationDelegate: MovieInformationPresentationDelegate?
     
     var date: Date = Date.yesterday {
@@ -40,11 +40,11 @@ final class PresentationProvider: PresentationProvidable {
         
         Task {
             let networkData = try await boxOfficeDispatcher.fetch(endpoint: endpoint)
-            let boxoffices = try await boxOfficeDispatcher.convert(from: networkData)
+            let boxoffices = try boxOfficeDispatcher.convert(from: networkData)
             self.boxOffices = boxoffices
             
-            // 추후 삭제 -> notification center 변경
-            boxOfficeDelegate?.callBoxOffices()
+            print(boxoffices)
+            boxOfficeCall?()
         }
     }
     
@@ -54,7 +54,7 @@ final class PresentationProvider: PresentationProvidable {
         
         Task {
             let networkData = try await self.movieInformationDispatcher.fetch(endpoint: movieInformationEndpoint)
-            guard var movieInformation = try await self.movieInformationDispatcher.convert(from: networkData).first else { return }
+            guard var movieInformation = try self.movieInformationDispatcher.convert(from: networkData).first else { return }
             
             movieInformation.poster = try await loadMoviePoster(movieName: movieInformation.movieName)
             self.movieInformation = movieInformation
@@ -85,10 +85,6 @@ final class PresentationProvider: PresentationProvidable {
     func getMovieInformation() -> MovieInformationItem? {
         return movieInformation
     }
-}
-
-protocol BoxOfficePresentationDelegate: AnyObject {
-    func callBoxOffices()
 }
 
 protocol MovieInformationPresentationDelegate: AnyObject {
