@@ -36,10 +36,6 @@ final class MovieInformationViewController: UIViewController {
         
         let movieInformation = presentationProvider.getMovieInformation()
         movieInformationView.information = movieInformation
-        
-        DispatchQueue.main.async {
-            self.title = movieInformation?.movieName
-        }
     }
 }
 

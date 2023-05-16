@@ -51,9 +51,10 @@ extension BoxOfficeViewController: UICollectionViewDelegate {
  
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let selectMovieCode = boxOffices[indexPath.item].movieCode
+        let selectMovie = boxOffices[indexPath.item]
         
-        let movieInformationViewController = MovieInformationViewController(movieCode: selectMovieCode)
+        let movieInformationViewController = MovieInformationViewController(movieCode: selectMovie.movieCode)
+        movieInformationViewController.title = selectMovie.name
         navigationController?.pushViewController(movieInformationViewController, animated: true)
     }
 }
