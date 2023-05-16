@@ -1,5 +1,5 @@
 //
-//  DaumSearchImageEndpoint.swift
+//  MoviePosterEndpoint.swift
 //  BoxOffice
 //
 //  Created by Sunny on 2023/05/15.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct DaumSearchImageEndpoint: RequestResponseProtocol {
+struct MoviePosterEndpoint: RequestResponseProtocol {
     
-    typealias Response = DaumSearchImageDTO
+    typealias Response = MoviePosterDTO
     
     var scheme: String
     var host: String

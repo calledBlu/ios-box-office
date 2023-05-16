@@ -12,7 +12,7 @@ final class PresentationTest: XCTestCase {
     
     var sut1: PresentationProvidable!
     var sut2 = MovieInformationDispatcher()
-    let daumEndpoint = DaumSearchImageEndpoint(movieName: "특송")
+    let daumEndpoint = MoviePosterEndpoint(movieName: "특송")
 
     override func setUpWithError() throws {
         
@@ -29,7 +29,7 @@ final class PresentationTest: XCTestCase {
     func test_dispatcher의_fetchImage가_잘작동되는지() async {
         
         do {
-            let movieImageDTO = try await sut2.fetchDaumImageDTO(daumEndpoint)
+            let movieImageDTO = try await sut2.fetchMoviePosterDTO(daumEndpoint)
             print(movieImageDTO)
             XCTAssertNotNil(movieImageDTO)
         } catch {
@@ -40,7 +40,7 @@ final class PresentationTest: XCTestCase {
     func test_dispatcher의_convertImage가_잘작동되는지() async {
         
         do {
-            let movieImageDTO = try await sut2.fetchDaumImageDTO(daumEndpoint)
+            let movieImageDTO = try await sut2.fetchMoviePosterDTO(daumEndpoint)
             let movieImage = try sut2.convertImage(from: movieImageDTO)
             XCTAssertNotNil(movieImage)
         } catch {

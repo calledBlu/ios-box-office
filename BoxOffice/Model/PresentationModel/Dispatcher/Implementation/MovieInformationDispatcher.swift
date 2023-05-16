@@ -27,7 +27,7 @@ struct MovieInformationDispatcher: PresentationDispatchable {
         return movieInformation
     }
     
-    func fetchDaumImageDTO(_ endpoint: DaumSearchImageEndpoint) async throws -> DaumSearchImageEndpoint.Response {
+    func fetchMoviePosterDTO(_ endpoint: MoviePosterEndpoint) async throws -> MoviePosterEndpoint.Response {
         
         let networkResult = try await networkProvider.request(endpoint)
         
@@ -39,7 +39,7 @@ struct MovieInformationDispatcher: PresentationDispatchable {
         }
     }
     
-    func convertImage(from networkData: DaumSearchImageDTO) throws -> UIImage? {
+    func convertImage(from networkData: MoviePosterDTO) throws -> UIImage? {
         
         let urlString = networkData.documents.first?.imageURL ?? ""
         guard var urlComponents = URLComponents(string: urlString) else {

@@ -59,16 +59,15 @@ final class PresentationProvider: PresentationProvidable {
             movieInformation.poster = try await loadMoviePoster(movieName: movieInformation.movieName)
             self.movieInformation = movieInformation
             
-            print(movieInformation)
             movieInformationDelegate?.callMovieInformation()
         }
     }
     
     func loadMoviePoster(movieName: String) async throws -> UIImage? {
         
-        let daumSearchImageEndpoint = DaumSearchImageEndpoint(movieName: movieName)
+        let moviePosterEndpoint = MoviePosterEndpoint(movieName: movieName)
         
-        let networkData = try await self.movieInformationDispatcher.fetchDaumImageDTO(daumSearchImageEndpoint)
+        let networkData = try await self.movieInformationDispatcher.fetchMoviePosterDTO(moviePosterEndpoint)
             // 추후 NSCache 처리 해야한다.
         let moviePoster = try self.movieInformationDispatcher.convertImage(from: networkData)
         

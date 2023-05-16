@@ -13,7 +13,7 @@ final class NetworkTest: XCTestCase {
     var sut: NetworkProvidable!
     
     var endpoint = DailyBoxOfficeEndpoint(date: Date.yesterday.formatData(type: .network))
-    var daumEndpoint = DaumSearchImageEndpoint(movieName: "특송")
+    var daumEndpoint = MoviePosterEndpoint(movieName: "특송")
     
     override func setUpWithError() throws {
         

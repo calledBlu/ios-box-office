@@ -1,5 +1,5 @@
 //
-//  DaumSearchImageDTO.swift
+//  MoviePosterDTO.swift
 //  BoxOffice
 //
 //  Created by Sunny on 2023/05/15.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DaumSearchImageDTO: Decodable {
+struct MoviePosterDTO: Decodable {
     let documents: [Document]
     let meta: Meta
 }
