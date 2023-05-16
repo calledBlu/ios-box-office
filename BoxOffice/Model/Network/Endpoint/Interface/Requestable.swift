@@ -38,11 +38,10 @@ extension Requestable {
     }
     
     func makeRequest() throws -> URLRequest {
-        
         guard let url = self.urlComponents else {
             throw NetworkError.failToMakeRequest
         }
-        
+
         var request = URLRequest(url: url)
         
         self.headers?.forEach { (key, value) in

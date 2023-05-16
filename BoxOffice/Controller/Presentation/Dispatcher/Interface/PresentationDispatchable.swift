@@ -26,7 +26,7 @@ extension PresentationDispatchable {
     func fetch(endpoint: Endpoint) async throws -> Endpoint.Response {
         
         let networkResult = try await networkProvider.request(endpoint)
-        
+
         switch networkResult {
         case .success(let decodingData):
             return decodingData

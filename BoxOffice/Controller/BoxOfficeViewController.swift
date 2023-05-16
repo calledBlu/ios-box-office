@@ -19,8 +19,12 @@ class BoxOfficeViewController: UIViewController {
         super.viewDidLoad()
 
         title = Date.yesterday.formatData(type: .title)
+        presentationProvider.date = Date.yesterday.formatData(type: .network)
         presentationProvider.delegate = self
 
+        collectionView.delegate = self
+
+        configureSelectDateButton()
         configureHierarchy()
         configureDataSource()
         configureRefreshControl()
@@ -52,6 +56,20 @@ class BoxOfficeViewController: UIViewController {
     }
 }
 
+extension BoxOfficeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        let boxOffices = presentationProvider.getBoxOffices()
+        let movieCode = boxOffices[indexPath.row].movieCode
+        let movieName = boxOffices[indexPath.row].name
+
+        let informationController = MovieInformationViewController(movieCode: movieCode)
+        informationController.title = movieName
+
+        self.navigationController?.pushViewController(informationController, animated: true)
+    }
+}
+
 extension BoxOfficeViewController: PresentationDelegate {
 
     func call() {
@@ -75,7 +93,58 @@ extension BoxOfficeViewController {
         collectionView.reloadData()
 
         DispatchQueue.main.async {
-           self.collectionView.refreshControl?.endRefreshing()
+            self.collectionView.refreshControl?.endRefreshing()
         }
+    }
+}
+
+extension BoxOfficeViewController {
+
+    func configureSelectDateButton() {
+        var addButton = UIBarButtonItem(title: "날짜선택", style: .plain, target: self, action: #selector(addButtonAction(_:)))
+        self.navigationItem.rightBarButtonItem = addButton
+    }
+
+    @objc func addButtonAction(_ sender: UIBarButtonItem) {
+            self.present(CalendarController(), animated: true)
+     }
+}
+
+
+
+class CalendarController: UIViewController {
+
+    var calendarView = UICalendarView()
+    private let presentationProvider = PresentationProvider()
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+
+        view.addSubview(calendarView)
+        configureCalendarView()
+    }
+
+    func configureCalendarView() {
+
+        let date = Date(timeIntervalSinceReferenceDate: )
+
+        let gregorianCalendar = Calendar(identifier: .gregorian)
+        calendarView.calendar = gregorianCalendar
+        calendarView.locale = Locale(identifier: "ko_KR")
+        calendarView.fontDesign = .rounded
+        calendarView.visibleDateComponents = gregorianCalendar.dateComponents([.year, .month, .day], from: Date.yesterday)
+
+        calendarView.availableDateRange = DateInterval(start: Date.distantPast, end: Date.yesterday)
+
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            calendarView.topAnchor.constraint(equalTo: view.topAnchor),
+            calendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
 }
