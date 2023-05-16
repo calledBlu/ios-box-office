@@ -19,7 +19,6 @@ final class MovieInformationView: UIView {
         let imageView = UIImageView()
         imageView.heightAnchor.constraint(equalToConstant: 400).isActive = true
         imageView.contentMode = .scaleAspectFit
-        imageView.sizeToFit()
         return imageView
     }()
     private let directorStackView = MovieInformationStackView(title: "감독")
