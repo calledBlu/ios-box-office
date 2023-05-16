@@ -40,7 +40,7 @@
 		80DB659E2A0CD7B200373449 /* MovieInformationDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB659D2A0CD7B200373449 /* MovieInformationDispatcher.swift */; };
 		80DB65BA2A10CF0500373449 /* MovieInformationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB65B92A10CF0500373449 /* MovieInformationItem.swift */; };
 		80DB65BC2A10D3F000373449 /* MovieInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB65BB2A10D3F000373449 /* MovieInformationViewController.swift */; };
-		80DB65BF2A10D6F300373449 /* MovieInformationVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB65BE2A10D6F300373449 /* MovieInformationVIew.swift */; };
+		80DB65BF2A10D6F300373449 /* MovieInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB65BE2A10D6F300373449 /* MovieInformationView.swift */; };
 		80DB65C12A11286F00373449 /* DaumAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB65C02A11286F00373449 /* DaumAPI.swift */; };
 		80DB65C32A113E3500373449 /* DaumSearchImageEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB65C22A113E3500373449 /* DaumSearchImageEndpoint.swift */; };
 		80DB65C52A113F1500373449 /* DaumSearchImageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB65C42A113F1500373449 /* DaumSearchImageDTO.swift */; };
@@ -109,7 +109,7 @@
 		80DB659D2A0CD7B200373449 /* MovieInformationDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInformationDispatcher.swift; sourceTree = "<group>"; };
 		80DB65B92A10CF0500373449 /* MovieInformationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInformationItem.swift; sourceTree = "<group>"; };
 		80DB65BB2A10D3F000373449 /* MovieInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInformationViewController.swift; sourceTree = "<group>"; };
-		80DB65BE2A10D6F300373449 /* MovieInformationVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInformationVIew.swift; sourceTree = "<group>"; };
+		80DB65BE2A10D6F300373449 /* MovieInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInformationView.swift; sourceTree = "<group>"; };
 		80DB65C02A11286F00373449 /* DaumAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaumAPI.swift; sourceTree = "<group>"; };
 		80DB65C22A113E3500373449 /* DaumSearchImageEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaumSearchImageEndpoint.swift; sourceTree = "<group>"; };
 		80DB65C42A113F1500373449 /* DaumSearchImageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaumSearchImageDTO.swift; sourceTree = "<group>"; };
@@ -401,7 +401,7 @@
 		80DB65BD2A10D6DB00373449 /* MovieInformation */ = {
 			isa = PBXGroup;
 			children = (
-				80DB65BE2A10D6F300373449 /* MovieInformationVIew.swift */,
+				80DB65BE2A10D6F300373449 /* MovieInformationView.swift */,
 			);
 			path = MovieInformation;
 			sourceTree = "<group>";
@@ -658,7 +658,7 @@
 				80DB65982A0CD74E00373449 /* PresentationProvider.swift in Sources */,
 				F0BDED452A0B56790076A8EE /* UILabel+Extension.swift in Sources */,
 				F0BDED472A0B58DB0076A8EE /* UIVerticalStackView.swift in Sources */,
-				80DB65BF2A10D6F300373449 /* MovieInformationVIew.swift in Sources */,
+				80DB65BF2A10D6F300373449 /* MovieInformationView.swift in Sources */,
 				80DB65BC2A10D3F000373449 /* MovieInformationViewController.swift in Sources */,
 				80DB659C2A0CD7A900373449 /* BoxOfficeDispatcher.swift in Sources */,
 				80DB65C52A113F1500373449 /* DaumSearchImageDTO.swift in Sources */,

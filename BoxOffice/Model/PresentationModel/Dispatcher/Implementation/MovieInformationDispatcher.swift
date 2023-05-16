@@ -47,9 +47,14 @@ struct MovieInformationDispatcher: PresentationDispatchable {
     func convertImage(from networkData: DaumSearchImageDTO) throws -> UIImage? {
         
         let urlString = networkData.documents.first?.imageURL ?? ""
-        guard let url = URL(string: urlString) else {
+        guard var urlComponents = URLComponents(string: urlString) else {
             return nil
         }
+        urlComponents.scheme = "https"
+        guard let url = urlComponents.url else {
+            return nil
+        }
+        
         let data = try Data(contentsOf: url)
         
         return UIImage(data: data)

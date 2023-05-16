@@ -7,9 +7,13 @@
 
 import UIKit
 
-final class MovieInformationVIew: UIView {
+final class MovieInformationView: UIView {
     
-    var information: MovieInformationItem?
+    var information: MovieInformationItem? {
+        didSet {
+            configureMovieInformation()
+        }
+    }
     
     private let moviePoster = UIImageView()
     
@@ -26,15 +30,22 @@ final class MovieInformationVIew: UIView {
         self.backgroundColor = .systemBackground
         
         configureHierarchy()
+        configureMovieInformation()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configureMovieInformation() {
+        
+        DispatchQueue.main.async {
+            self.moviePoster.image = self.information?.poster
+        }
+    }
+    
     private func configureHierarchy() {
         
-        moviePoster.image = information?.poster
         moviePoster.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(moviePoster)

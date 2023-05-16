@@ -10,7 +10,7 @@ import UIKit
 final class MovieInformationViewController: UIViewController {
     
     private let presentationProvider = PresentationProvider()
-    private let movieInformationView = MovieInformationVIew()
+    private let movieInformationView = MovieInformationView()
     
     init(movieCode: String) {
         presentationProvider.movieCode = movieCode
@@ -24,29 +24,28 @@ final class MovieInformationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "특송"
-        
         presentationProvider.movieInformationDelegate = self
-//        setupMovieInformationView()
-        
+        setupMovieInformationView()
     }
     
     override func loadView() {
         self.view = movieInformationView
     }
     
-//    func setupMovieInformationView() {
-//
-//        let movieInformation = presentationProvider.getMovieInformation()
-//        movieInformationView.information = movieInformation
-//    }
+    func setupMovieInformationView() {
+        
+        let movieInformation = presentationProvider.getMovieInformation()
+        movieInformationView.information = movieInformation
+        
+        DispatchQueue.main.async {
+            self.title = movieInformation?.movieName
+        }
+    }
 }
 
 extension MovieInformationViewController: MovieInformationPresentationDelegate {
     
     func callMovieInformation() {
-        
-        print("실행")
-//        setupMovieInformationView()
+        setupMovieInformationView()
     }
 }
