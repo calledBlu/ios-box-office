@@ -12,7 +12,7 @@ struct MovieInformationDispatcher: PresentationDispatchable {
     typealias ViewModel = MovieInformationItem
     typealias Endpoint = MovieInformationEndpoint
     
-    func convert(from networkData: MovieInformationDTO) async throws -> [MovieInformationItem] {
+    func convert(from networkData: MovieInformationDTO) throws -> [MovieInformationItem] {
         
         let data = networkData.result.movieIformation
         

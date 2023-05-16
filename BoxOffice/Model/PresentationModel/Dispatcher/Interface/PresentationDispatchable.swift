@@ -13,7 +13,7 @@ protocol PresentationDispatchable {
     associatedtype Endpoint: RequestResponseProtocol
     
     func fetch(endpoint: Endpoint) async throws -> Endpoint.Response
-    func convert(from networkData: Endpoint.Response) async throws -> [ViewModel]
+    func convert(from networkData: Endpoint.Response) throws -> [ViewModel]
 }
 
 extension PresentationDispatchable {
