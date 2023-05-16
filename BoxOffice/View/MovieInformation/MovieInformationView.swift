@@ -15,10 +15,13 @@ final class MovieInformationView: UIView {
         }
     }
     
-    private let scrollView = UIScrollView()
-    private let contentView = UIView()
-    
-    private let moviePoster = UIImageView()
+    private let moviePoster: UIImageView = {
+        let imageView = UIImageView()
+        imageView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        imageView.contentMode = .scaleAspectFit
+        imageView.sizeToFit()
+        return imageView
+    }()
     private let directorStackView = MovieInformationStackView(title: "감독")
     private let productionYearStackView = MovieInformationStackView(title: "제작년도")
     private let openDateStackView = MovieInformationStackView(title: "개봉일")
@@ -34,7 +37,6 @@ final class MovieInformationView: UIView {
         self.backgroundColor = .systemBackground
         
         configureMovieInformation()
-        configureMoviePosterHierarchy()
         configureHierarchy()
     }
     
@@ -42,32 +44,10 @@ final class MovieInformationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureScrollView() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
-    }
-    
     func configureMovieInformation() {
         
         DispatchQueue.main.async {
             self.moviePoster.image = self.information?.poster
-            self.moviePoster.sizeToFit()
             self.directorStackView.updateDataLabel(self.information?.director)
             self.productionYearStackView.updateDataLabel(self.information?.productionYear)
             self.openDateStackView.updateDataLabel(self.information?.openDate)
@@ -79,23 +59,10 @@ final class MovieInformationView: UIView {
         }
     }
     
-    private func configureMoviePosterHierarchy() {
-        
-        moviePoster.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.addSubview(moviePoster)
-        NSLayoutConstraint.activate([
-            moviePoster.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 15),
-            moviePoster.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -15),
-            moviePoster.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            moviePoster.heightAnchor.constraint(equalToConstant: 400)
-        ])
-    }
-    
     private func configureHierarchy() {
         
         let totalStackView: UIStackView = {
-            let arrangedSubviews = [ directorStackView, productionYearStackView, openDateStackView, showTimeStackView, auditGradeStackView, nationStackView, genreStackView, actorStackView ]
+            let arrangedSubviews = [ moviePoster, directorStackView, productionYearStackView, openDateStackView, showTimeStackView, auditGradeStackView, nationStackView, genreStackView, actorStackView ]
             let stackView = UIVerticalStackView(arrangedSubviews: arrangedSubviews)
             stackView.spacing = 7
             stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -104,7 +71,7 @@ final class MovieInformationView: UIView {
         
         self.addSubview(totalStackView)
         NSLayoutConstraint.activate([
-            totalStackView.topAnchor.constraint(equalTo: self.moviePoster.bottomAnchor),
+            totalStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             totalStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 15),
             totalStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -15)
         ])
