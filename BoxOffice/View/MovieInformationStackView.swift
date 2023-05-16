@@ -7,17 +7,18 @@
 
 import UIKit
 
-class UIHorizontalStackView: UIStackView {
+class MovieInformationStackView: UIStackView {
     
     private let titleLabel: UILabel = {
         var label = UILabel(fontSize: .headline)
         label.textAlignment = .center
-        label.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        label.widthAnchor.constraint(equalToConstant: 80).isActive = true
         return label
     }()
     
     private let dataLabel: UILabel = {
         var label = UILabel(fontSize: .callout)
+        label.numberOfLines = 0
         return label
     }()
     

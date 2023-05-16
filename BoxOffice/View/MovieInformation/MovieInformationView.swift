@@ -15,15 +15,18 @@ final class MovieInformationView: UIView {
         }
     }
     
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    
     private let moviePoster = UIImageView()
-    private let directorStackView = UIHorizontalStackView(title: "감독")
-    private let productionYearStackView = UIHorizontalStackView(title: "제작년도")
-    private let openDateStackView = UIHorizontalStackView(title: "개봉일")
-    private let showTimeStackView = UIHorizontalStackView(title: "상영시간")
-    private let auditGradeStackView = UIHorizontalStackView(title: "관람등급")
-    private let nationStackView = UIHorizontalStackView(title: "제작국가")
-    private let genreStackView = UIHorizontalStackView(title: "장르")
-    private let actorStackView = UIHorizontalStackView(title: "배우")
+    private let directorStackView = MovieInformationStackView(title: "감독")
+    private let productionYearStackView = MovieInformationStackView(title: "제작년도")
+    private let openDateStackView = MovieInformationStackView(title: "개봉일")
+    private let showTimeStackView = MovieInformationStackView(title: "상영시간")
+    private let auditGradeStackView = MovieInformationStackView(title: "관람등급")
+    private let nationStackView = MovieInformationStackView(title: "제작국가")
+    private let genreStackView = MovieInformationStackView(title: "장르")
+    private let actorStackView = MovieInformationStackView(title: "배우")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +40,27 @@ final class MovieInformationView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureScrollView() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
     }
     
     func configureMovieInformation() {
