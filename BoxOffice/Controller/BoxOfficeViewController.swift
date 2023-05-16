@@ -23,6 +23,7 @@ class BoxOfficeViewController: UIViewController {
 
         title = presentationProvider.getBoxOfficeDate()
         
+        presentationProvider.loadBoxOffices()
         presentationProvider.boxOfficeDelegate = self
         collectionView.delegate = self
         

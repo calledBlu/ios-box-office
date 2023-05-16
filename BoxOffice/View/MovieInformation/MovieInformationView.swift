@@ -67,6 +67,7 @@ final class MovieInformationView: UIView {
         
         DispatchQueue.main.async {
             self.moviePoster.image = self.information?.poster
+            self.moviePoster.sizeToFit()
             self.directorStackView.updateDataLabel(self.information?.director)
             self.productionYearStackView.updateDataLabel(self.information?.productionYear)
             self.openDateStackView.updateDataLabel(self.information?.openDate)
@@ -80,7 +81,6 @@ final class MovieInformationView: UIView {
     
     private func configureMoviePosterHierarchy() {
         
-        moviePoster.sizeToFit()
         moviePoster.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(moviePoster)

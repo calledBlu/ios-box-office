@@ -9,7 +9,7 @@ import UIKit
 
 protocol PresentationProvidable {
 
-    func loadBoxOffices(date: String) async throws
-    func loadMovieInformation(movieCode: String)
+    func loadBoxOffices() async throws
+    func loadMovieInformation()
     func loadMoviePoster(movieName: String) async throws -> UIImage?
 }

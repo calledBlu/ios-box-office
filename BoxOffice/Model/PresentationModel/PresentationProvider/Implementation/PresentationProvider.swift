@@ -21,27 +21,21 @@ final class PresentationProvider: PresentationProvidable {
     weak var boxOfficeDelegate: BoxOfficePresentationDelegate?
     weak var movieInformationDelegate: MovieInformationPresentationDelegate?
     
-    var date: Date {
+    var date: Date = Date.yesterday {
         didSet {
-            let networkDate = date.formatData(type: .network)
-            loadBoxOffices(date: networkDate)
+            loadBoxOffices()
         }
     }
     
     var movieCode: String = "" {
         didSet {
-            loadMovieInformation(movieCode: movieCode)
+            loadMovieInformation()
         }
     }
     
-    init() {
-        self.date = Date.yesterday
-        let yesterdayDate = date.formatData(type: .network)
-        self.loadBoxOffices(date: yesterdayDate)
-    }
-    
-    func loadBoxOffices(date: String) {
+    func loadBoxOffices() {
         
+        let date = self.date.formatData(type: .network)
         let endpoint = DailyBoxOfficeEndpoint(date: date)
         
         Task {
@@ -54,9 +48,9 @@ final class PresentationProvider: PresentationProvidable {
         }
     }
     
-    func loadMovieInformation(movieCode: String) {
+    func loadMovieInformation() {
         
-        let movieInformationEndpoint = MovieInformationEndpoint(movieCode: movieCode)
+        let movieInformationEndpoint = MovieInformationEndpoint(movieCode: self.movieCode)
         
         Task {
             let networkData = try await self.movieInformationDispatcher.fetch(endpoint: movieInformationEndpoint)
