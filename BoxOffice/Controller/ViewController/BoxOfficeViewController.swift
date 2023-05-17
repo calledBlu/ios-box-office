@@ -11,16 +11,16 @@ class BoxOfficeViewController: UIViewController {
     
     private var dataSource: UICollectionViewDataSource?
     private let presentationProvider = PresentationProvider()
-    
+
     private var boxOffices: [BoxOfficeItem] {
         self.presentationProvider.getBoxOffices()
     }
-    
+
     private lazy var collectionView = BoxOfficeCollectionView(frame: .zero)
     private lazy var indicatorView = ActivityIndicatorView(frame: view.bounds)
-    
+
     override func viewDidLoad() {
-        
+
         super.viewDidLoad()
 
         collectionView.delegate = self
@@ -29,13 +29,14 @@ class BoxOfficeViewController: UIViewController {
         setupInitialBoxOffices()
         configureRefreshControl()
     }
-    
+
     private func configureHierarchy() {
         
         view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         view.addSubview(indicatorView)
-        
+        configureSelectDateButton()
+
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
@@ -71,18 +72,19 @@ class BoxOfficeViewController: UIViewController {
 extension BoxOfficeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-         let selectMovie = boxOffices[indexPath.item]
+        let selectMovie = boxOffices[indexPath.item]
         let movieInformationViewController = MovieInformationViewController(movieCode: selectMovie.movieCode)
-         movieInformationViewController.title = selectMovie.name
 
-         navigationController?.pushViewController(movieInformationViewController, animated: true)
-     }
+        movieInformationViewController.title = selectMovie.name
+
+        navigationController?.pushViewController(movieInformationViewController, animated: true)
+    }
 }
 
 extension BoxOfficeViewController {
 
     func configureRefreshControl() {
-        
+
         collectionView.refreshControl = UIRefreshControl()
         collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
@@ -97,5 +99,22 @@ extension BoxOfficeViewController {
             self.collectionView.refreshControl?.endRefreshing()
             self.collectionView.isScrollEnabled = true
         }
+    }
+}
+
+extension BoxOfficeViewController {
+
+    func configureSelectDateButton() {
+        let dateButton = UIBarButtonItem(title: "날짜선택", style: .plain, target: self, action: #selector(dateButtonAction(_:)))
+        self.navigationItem.rightBarButtonItem = dateButton
+    }
+
+    @objc func dateButtonAction(_ sender: UIBarButtonItem) {
+        let calendarViewController = CalendarViewController()
+        calendarViewController.calendarCall = { date in
+            self.indicatorView.startAnimating()
+            self.presentationProvider.updateDate(date)
+        }
+        self.present(calendarViewController, animated: true)
     }
 }

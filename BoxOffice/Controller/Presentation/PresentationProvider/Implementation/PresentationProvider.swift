@@ -95,7 +95,3 @@ final class PresentationProvider: PresentationProvidable {
         self.movieCode = movieCode
     }
 }
-
-protocol InformationDelegate: AnyObject {
-    func call()
-}

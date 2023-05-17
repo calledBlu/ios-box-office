@@ -46,29 +46,3 @@ enum MovieAPI {
         return queryItem
     }
 }
-
-enum DaumAPI {
-
-    static var scheme: String {
-        return "https"
-    }
-
-    static var host: String {
-        return "dapi.kakao.com"
-    }
-
-    static var path: String {
-        return "/v2/search/image"
-    }
-
-    static var apiKey: String {
-        guard let key = Bundle.main.posterAPIKey else { return "" }
-        return key
-    }
-
-    static func makeQuery(with name: String) -> [URLQueryItem] {
-        let movieName = name + " 영화 포스터"
-        let queryItem = URLQueryItem(name: "query", value: movieName)
-        return [queryItem]
-    }
-}
