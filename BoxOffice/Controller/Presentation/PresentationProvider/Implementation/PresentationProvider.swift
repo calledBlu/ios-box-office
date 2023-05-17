@@ -5,81 +5,95 @@
 //  Created by Sunny on 2023/05/15.
 //
 
-import Foundation
+import UIKit
 
 final class PresentationProvider: PresentationProvidable {
     
     private let boxOfficeDispatcher = BoxOfficeDispatcher()
     private let movieInformationDispatcher = MovieInformationDispatcher()
-    private let moviePosterDispatcher = MoviePosterDispatcher()
 
     private var boxOffices: [BoxOfficeItem] = []
-    private var movieInformation: [MovieInformationTextItem] = []
-    private var moviePoster: [MoviePosterItem] = []
+    private var movieInformation: MovieInformationItem?
     
-    weak var delegate: PresentationDelegate?
-    weak var infoDelegate: InformationDelegate?
+    var boxOfficeCall: (() -> Void)?
+    var movieInformationCall: (() -> Void)?
     
-    var date: String? {
+    private var date: Date = Date.yesterday {
         didSet {
-            loadBoxOffices(date: date ?? "")
+            loadBoxOffices()
         }
     }
 
-    var movieCode: String? {
+    private var movieCode: String = "" {
         didSet {
-            loadMovieInformations(movieCode: movieCode ?? "")
+            loadMovieInformation()
         }
     }
+    
+    func loadBoxOffices() {
 
-    func loadBoxOffices(date: String) {
-        
+        let date = self.date.formatData(type: .network)
         let endpoint = DailyBoxOfficeEndpoint(date: date)
-        
+
         Task {
             let networkData = try await boxOfficeDispatcher.fetch(endpoint: endpoint)
-            let boxoffices = try await boxOfficeDispatcher.convert(from: networkData)
+            let boxoffices = try boxOfficeDispatcher.convert(from: networkData)
             self.boxOffices = boxoffices
-            
-            delegate?.call()
+
+            boxOfficeCall?()
         }
     }
-    
+
+    func loadMovieInformation() {
+
+        let movieInformationEndpoint = MovieInformationEndpoint(movieCode: self.movieCode)
+
+        Task {
+            let networkData = try await self.movieInformationDispatcher.fetch(endpoint: movieInformationEndpoint)
+
+            guard var movieInformation = try self.movieInformationDispatcher.convert(from: networkData).first else { return }
+
+            movieInformation.poster = try await loadMoviePoster(movieName: movieInformation.movieName)
+            self.movieInformation = movieInformation
+
+            movieInformationCall?()
+        }
+    }
+
+    func loadMoviePoster(movieName: String) async throws -> UIImage? {
+
+        let moviePosterEndpoint = MoviePosterEndpoint(movieName: movieName)
+
+        let networkData = try await self.movieInformationDispatcher.fetchMoviePosterDTO(moviePosterEndpoint)
+        let moviePoster = try self.movieInformationDispatcher.convertImage(from: networkData)
+
+        return moviePoster
+    }
+
     func getBoxOffices() -> [BoxOfficeItem] {
+
         return self.boxOffices
     }
 
-    func loadMovieInformations(movieCode: String) {
-        let movieInformationEndPoint = MovieInformationEndpoint(movieCode: movieCode)
-        
-        Task {
-            let informationNetworkData = try await movieInformationDispatcher.fetch(endpoint: movieInformationEndPoint)
-            let movieInformation = try await movieInformationDispatcher.convert(from: informationNetworkData)
-            self.movieInformation = movieInformation
+    func getBoxOfficeDate() -> String {
 
-            guard let movieName = movieInformation.first?.movieName else { return }
-
-            let moviePosterEndPoint = MoviePosterEndpoint(movieName: movieName)
-            let posterNetworkData = try await moviePosterDispatcher.fetch(endpoint: moviePosterEndPoint)
-
-            let moviePoster = try await moviePosterDispatcher.convert(from: posterNetworkData)
-            self.moviePoster = moviePoster
-
-            infoDelegate?.call()
-        }
-    }
-    
-    func getMovieInformation() -> [MovieInformationTextItem] {
-        return self.movieInformation
+        return self.date.formatData(type: .title)
     }
 
-    func getMoviePoster() -> [MoviePosterItem] {
-        return self.moviePoster
-    }
-}
+    func getMovieInformation() -> MovieInformationItem? {
 
-protocol PresentationDelegate: AnyObject {
-    func call()
+        return movieInformation
+    }
+
+    func updateDate(_ date: Date) {
+
+        self.date = date
+    }
+
+    func updateMovieCode(_ movieCode: String) {
+
+        self.movieCode = movieCode
+    }
 }
 
 protocol InformationDelegate: AnyObject {

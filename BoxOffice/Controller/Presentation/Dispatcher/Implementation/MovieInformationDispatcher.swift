@@ -2,40 +2,57 @@
 //  MovieInformationDispatcher.swift
 //  BoxOffice
 //
-//  Created by Blu on 2023/05/15.
+//  Created by Sunny on 2023/05/16.
 //
 
-import Foundation
+import UIKit
 
 struct MovieInformationDispatcher: PresentationDispatchable {
-
-    typealias ViewModel = MovieInformationTextItem
+    
+    typealias ViewModel = MovieInformationItem
     typealias Endpoint = MovieInformationEndpoint
-
-    func convert(from networkData: MovieInformationDTO) async throws -> [MovieInformationTextItem] {
-
+    
+    func convert(from networkData: MovieInformationDTO) throws -> [MovieInformationItem] {
+        
         let data = networkData.result.movieIformation
-
-        var peopleNames: [String] {
-            var names: [String] = []
-
-            data.actors.forEach { name in
-                names.append(name.peopleNm)
-            }
-
-            return names
+        let movieInformation = [ViewModel(movieName: data.movieName,
+                                          directors: data.directors,
+                                          productionYear: data.productionYear,
+                                          openDate: data.openDate,
+                                          showTime: data.showTime,
+                                          audits: data.audits,
+                                          nations: data.nations,
+                                          genres: data.genres,
+                                          actors: data.actors)]
+        return movieInformation
+    }
+    
+    func fetchMoviePosterDTO(_ endpoint: MoviePosterEndpoint) async throws -> MoviePosterEndpoint.Response {
+        
+        let networkResult = try await networkProvider.request(endpoint)
+        
+        switch networkResult {
+        case .success(let decodingData):
+            return decodingData
+        case .failure(let error):
+            throw error
         }
-
-        let movieInformationText = [ViewModel(movieName: data.movieNm,
-                                              producer: data.prdtStatNm,
-                                              productYear: data.prdtYear,
-                                              openDate: data.openDt,
-                                              showTime: data.showTm,
-                                              typeName: data.typeNm,
-                                              nations: data.nations.first?.nationNm ?? "",
-                                              genres: data.genres.first?.genreNm ?? "",
-                                             peopleNames: peopleNames)]
-
-        return movieInformationText
+    }
+    
+    func convertImage(from networkData: MoviePosterDTO) throws -> UIImage? {
+        
+        let urlString = networkData.result.first?.imageURL ?? ""
+        guard var urlComponents = URLComponents(string: urlString) else {
+            return nil
+        }
+        urlComponents.scheme = "https"
+        
+        guard let url = urlComponents.url else {
+            return nil
+        }
+        
+        let data = try Data(contentsOf: url)
+        
+        return UIImage(data: data)
     }
 }

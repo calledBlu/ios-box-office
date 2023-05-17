@@ -21,10 +21,10 @@ extension Bundle {
         return key
     }
 
-    var posterAPIKey: String? {
+    var daumAPIKey: String? {
         guard let file = self.path(forResource: "Info", ofType: "plist"),
               let resource = NSDictionary(contentsOfFile: file),
-              let key = resource["PosterAPIKey"] as? String else {
+              let key = resource["DaumAPIKey"] as? String else {
             print(NetworkError.notFoundAPIKey.localizedDescription)
 
             return nil
