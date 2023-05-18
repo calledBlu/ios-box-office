@@ -23,11 +23,7 @@ class BoxOfficeViewController: UIViewController {
         
         super.viewDidLoad()
 
-<<<<<<< HEAD:BoxOffice/Controller/BoxOfficeViewController.swift
-        title = Date.yesterday.formatData(type: .title)
-=======
         collectionView.delegate = self
->>>>>>> STEP4:BoxOffice/Controller/ViewController/BoxOfficeViewController.swift
 
         configureHierarchy()
         setupInitialBoxOffices()
@@ -50,19 +46,7 @@ class BoxOfficeViewController: UIViewController {
     }
     
     private func setupInitialBoxOffices() {
-        
-<<<<<<< HEAD:BoxOffice/Controller/BoxOfficeViewController.swift
-        presentationProvider.boxOfficeCall = {
-            let boxOfficeDataSource = BoxOfficeDataSource()
-            boxOfficeDataSource.boxOffices = self.presentationProvider.getBoxOffices()
-            self.dataSource = boxOfficeDataSource
-            
-            DispatchQueue.main.async {
-                self.collectionView.dataSource = self.dataSource
-                self.indicatorView.stopAnimating()
-            }
-        }
-=======
+ 
         presentationProvider.loadBoxOffices()
         configureDataSource { [weak self] in
             self?.indicatorView.stopAnimating()
@@ -96,7 +80,6 @@ extension BoxOfficeViewController: UICollectionViewDelegate {
         movieInformationViewController.title = selectMovie.name
 
         navigationController?.pushViewController(movieInformationViewController, animated: true)
->>>>>>> STEP4:BoxOffice/Controller/ViewController/BoxOfficeViewController.swift
     }
 }
 
